@@ -22,4 +22,25 @@ const addemp=async(req,res)=>{
     }
 }
 
-module.exports={addemp};
+const getemp=async(req,res)=>{
+    try{
+        const query=`SELECT * FROM employee`;
+        db.all(query,[],(err,rows)=>{
+            if(err)
+            {
+                console.log(err);
+                return res.status(500)
+                          .json({message:"Database query failed",message:false});
+            }
+            return res.status(200)
+                      .json({message:"data as follow",success:true,data:rows});
+        })
+    }catch(err)
+    {
+        console.log(err);
+                res.status(500)
+                .json({message:"Internal Server Error",success:false})
+    }
+}
+
+module.exports={addemp,getemp};
