@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "emp",
+            "database": "${workspaceFolder:Employee_Management}/backend/employee.db"
+        }
+    ]
+}
