@@ -2,7 +2,7 @@ const db = require("../database/db");
 
 // ADD EMPLOYEE
 const addemp = (req, res) => {
-  const { emp_id, name, email, position, contact_no } = req.body;
+  const { emp_id, name, email, position, contact_no,role } = req.body;
 
   db.get("SELECT * FROM employee WHERE emp_id = ?", [emp_id], (err, row) => {
     if (err) {
@@ -15,8 +15,8 @@ const addemp = (req, res) => {
     }
 
     db.run(
-      "INSERT INTO employee (emp_id, name, email, position, contact_no) VALUES (?, ?, ?, ?, ?)",
-      [emp_id, name, email, position, contact_no],
+      "INSERT INTO employee (emp_id, name, email, position, contact_no,role) VALUES (?, ?, ?, ?, ?,?)",
+      [emp_id, name, email, position, contact_no,role],
       function (err) {
         if (err) {
           console.error(err);
@@ -47,7 +47,7 @@ const getemp = (req, res) => {
 // UPDATE EMPLOYEE
 const updateemp = (req, res) => {
   const { id } = req.params;
-  const { name, email, position, contact_no } = req.body;
+  const { name, email, position, contact_no ,role} = req.body;
 
   const fields = [];
   const values = [];
@@ -56,6 +56,7 @@ const updateemp = (req, res) => {
   if (email) { fields.push("email = ?"); values.push(email); }
   if (position) { fields.push("position = ?"); values.push(position); }
   if (contact_no) { fields.push("contact_no = ?"); values.push(contact_no); }
+  if (rolw) {fields.push("role=?");values.push(role);}
 
   if (fields.length === 0) {
     return res.status(400).json({ message: "No fields provided to update" });

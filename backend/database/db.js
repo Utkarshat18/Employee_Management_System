@@ -15,7 +15,8 @@ db.run(`
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     position TEXT NOT NULL,
-    contact_no INTEGER NOT NULL
+    contact_no INTEGER NOT NULL,
+    role TEXT NOT NULL
   )
 `);
 
