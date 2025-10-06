@@ -43,4 +43,50 @@ const getemp=async(req,res)=>{
     }
 }
 
-module.exports={addemp,getemp};
+const updateemp=async(req,res)=>{
+    try{
+        console.log("this is controller");
+        const { name, email, position,contact_no } = req.body;
+        const { id } = req.params;
+         const fields = [];
+    const values = [];
+
+    if (name) {
+      fields.push("name = ?");
+      values.push(name);
+    }
+    if (email) {
+      fields.push("email = ?");
+      values.push(email);
+    }
+    if (position) {
+      fields.push("position = ?");
+      values.push(position);
+    }
+    if (contact_no) {
+      fields.push("contact_no = ?");
+      values.push(contact_no);
+    }
+
+    if (fields.length === 0) {
+      return res.status(400).json({ message: "No fields provided to update" });
+    }
+
+    const query = `UPDATE employee SET ${fields.join(", ")} WHERE emp_id = ?`;
+    values.push(id);
+
+    const stmt = db.prepare(query);
+    const result = stmt.run(values);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    res.json({ message: "Employee updated successfully" });
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+module.exports={addemp,getemp,updateemp};
