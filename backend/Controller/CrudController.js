@@ -88,5 +88,22 @@ const updateemp=async(req,res)=>{
     }
 }
 
+const deleteemp=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        console.log("This is controller")
 
-module.exports={addemp,getemp,updateemp};
+        // Delete the employee
+        db.prepare("DELETE FROM employee WHERE emp_id = ?").run(id);
+
+        res.status(200).json({ 
+            message: "Employee deleted successfully", 
+            success: true 
+        });
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+module.exports={addemp,getemp,updateemp,deleteemp};
