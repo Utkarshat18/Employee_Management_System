@@ -6,7 +6,7 @@ const createemployevalidation=(req,res,next)=>{
         name:joi.string().required(),
         email:joi.string().email().required(),
         position:joi.string().required(),
-        contact_no:joi.number().integer().required()
+        contact_no:joi.number().integer().min(1000000000).max(9999999999).required()
     });
     const {error}=schema.validate(req.body);
     if(error)
